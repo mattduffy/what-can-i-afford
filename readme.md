@@ -1,4 +1,4 @@
-# I Want To Purchase My First Home
+# I Want To Purchase My First Home. What Can I Afford?
 
 Buying a house can be a complex and confusing prospect.  Especially for a first time buyer.
 

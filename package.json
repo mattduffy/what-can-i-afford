@@ -1,0 +1,31 @@
+{
+  "name": "what-can-i-afford",
+  "version": "0.0.0",
+  "description": "Web app to calculate realistic monthly mortgage costs + cost of living expenses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattduffy/what-can-i-afford.git"
+  },
+  "dependencies": {
+    "angular": "~1.2.16",
+    "express": "~4.4.3"
+  },
+  "devDependencies": {
+    "assert": "^1.1.1",
+    "should": "^4.0.4"
+  },
+  "keywords": [
+    "what",
+    "can",
+    "i",
+    "afford"
+  ],
+  "author": "Matthew Duffy",
+  "license": "BSD",
+  "gitHead": "4e3ff1bcbe36eb3bd2577d1dc158265d8fa7e235",
+  "readmeFilename": "readme.md"
+}
