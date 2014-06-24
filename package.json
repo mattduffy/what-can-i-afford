@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "description": "Web app to calculate realistic monthly mortgage costs + cost of living expenses.",
   "main": "index.js",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "node ./test/test.js",
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -12,8 +15,14 @@
   },
   "dependencies": {
     "angular": "~1.2.16",
-    "express": "~4.4.3",
     "mongodb": "^1.4.7"
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0"
   },
   "devDependencies": {
     "assert": "^1.1.1",
