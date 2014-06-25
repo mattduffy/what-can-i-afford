@@ -1,9 +1,8 @@
 {
   "name": "what-can-i-afford",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Web app to calculate realistic monthly mortgage costs + cost of living expenses.",
   "main": "index.js",
-  "version": "0.0.1",
   "private": true,
   "scripts": {
     "test": "node ./test/test.js",
@@ -15,7 +14,7 @@
   },
   "dependencies": {
     "angular": "~1.2.16",
-    "mongodb": "^1.4.7"
+    "mongodb": "^1.4.7",
     "express": "~4.2.0",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
