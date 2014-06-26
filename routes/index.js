@@ -22,7 +22,7 @@ router.get('/list', function(req, res) {
 });
 
 router.get('/list/json', function(req, res) {
-  res.send(flights);
+  res.json(flights);
 });
 
 module.exports = router;
