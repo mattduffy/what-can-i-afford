@@ -4,6 +4,9 @@ var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);
 
+var util = require('util');
+
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+  //console.log(util.inspect(require('../routes/index'), {showHidden: true, depth: null, colors: true, customInspect: false}));
 });

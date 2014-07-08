@@ -1,0 +1,69 @@
+extends layout
+block body_content
+  section#accounts
+    h4 List Your Accounts
+    
+    fieldset
+      legend Typical Cash Accounts  
+      label(for='savings') Savings  $
+        input(id='savings', type='text', name='acct_savings', value='', placeholder='account value')
+      br
+      label(for='checking') Checking  $
+        input(id='checking', type='text', name='acct_checking' value='', placeholder='account value')
+          
+    fieldset
+      legend Retirement Accounts
+      label(for='ira_roth') ROTH IRA  $
+        input(id='ira_roth', type='text', name='acct_ira_roth', value='', placeholder='account value')
+      br
+      label(for='ira_traditional') Traditional IRA  $
+        input(id='ira_traditional', type='text', name='acct_ira_traditional', value='', placeholder='account value')
+
+      br
+      label(for='ira_401k') 401K  $
+        input(id='ira_401k', type='text', name='acct_401k', value='', placeholder='account value')
+            
+    fieldset
+      legend Individual Investment Accounts
+      label(for='brokerage') Brokerage Account  $
+        input(id='brokerage', type='text', name='acct_brokerage', value='', placeholder='account value')
+          
+    section#money_total
+      h4 You have a net asset value of $<span id='total_asset_val'></span>
+      
+      
+      
+    script.
+      $(document).ready(function() {
+        var elementId = 'total_asset_val';
+        var total_assets = [];
+        
+        var sum_accounts = function(value) {
+          var new_total
+            , elem = $('#'+elementId);
+          if (0 > parseInt(value)) {
+            elem.addClass('negative_balance');
+          } else {
+            elem.removeClass('negative_balance');
+          }
+          new_total = value + '';
+          new_total = new_total.replace(/(\d+)(\d{3})/g, '$1'+','+'$2');
+          elem.html(new_total);
+        };
+        
+        var add_up = function(prev, curr) {
+          return (prev + curr);
+        };
+        
+        $('input:text').each(function(i, v) {
+          var acct = $(v);
+          total_assets[i] = parseInt(acct.val() || 0);
+          acct.change({idx:i}, function(e) {
+            total_assets[e.data.idx] = parseInt($(this).val());
+            sum_accounts(total_assets.reduce(add_up));
+          });
+        });
+        sum_accounts(total_assets.reduce(add_up));
+      });
+      
+    section#next

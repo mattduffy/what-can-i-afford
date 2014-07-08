@@ -1,8 +1,8 @@
 extends layout
 
-block content
+block body_content
     h1= title
     ul
         each flight, index in flights
-            - console.log(flight);
-            li= flight.number + ': ' + flight.origin + '-' + flight.destination
+            - //console.log(flight);
+            li= flight.number + ': ' + flight.origin + '-' + flight.desintation

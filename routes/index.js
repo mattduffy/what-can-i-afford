@@ -1,28 +1,80 @@
-var express = require('express');
-var router = express.Router();
-
-var flights = [
-    {number: '001', origin: "Oakland", desintation: "Denver"},
-    {number: '002', origin: "San Francisco", desintation: "Denver"},
-    {number: '003', origin: "Chicago", desintation: "Denver"},
-    {number: '004', origin: "Los Angeles", desintation: "Denver"},
-    {number: '005', origin: "New York", desintation: "Denver"},
-    {number: '006', origin: "Denver", desintation: "Oakland"},
-    {number: '007', origin: "Denver", desintation: "Chicago"},
-];
+var express = require('express')
+  , app = express()
+  , router = express.Router();
 
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+router.all('/', function(req, res, next) {
+  res.set('x-powered-by', 'Your mom!');
+  next();
+})
+.get('/', function(req, res, next) {
+  console.dir(req.route);
+  var templateVars = {
+    layout: 'layout.jade',
+    title: "Jade sucks ass",
+  };
+  res.render('accounts', templateVars);
+})
+.post('/', function(req, res, next) {
+  res.send(req.body.test);
+})
+.put('/', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
+})
+.delete('/', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
 });
 
-router.get('/list', function(req, res) {
-  res.render('list', {title: "All Flights", flights: flights});
+  
+router.all('/accounts', function(req, res, next) {
+  res.set('x-powered-by', 'Your mom!');
+  next();
+})
+.get('/accounts', function(req, res, next) {
+  var maintainer = {name: "Matt", twitter: "don't have one", blog: "don't have that, either"};
+  var templateVars = {
+    title: "so far I don't like Jade",
+    maintainer: maintainer
+  };
+  res.render('accounts', templateVars);
+})
+.post('/accounts', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
+})
+.put('/accounts', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.httpVersion + ' ' + req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
+})
+.delete('/accounts', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.method + ' method not implemented for this route.', stack: 'empty stack'};
+  var mess = 'HTTP '+ req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
 });
 
-router.get('/list/json', function(req, res) {
-  res.json(flights);
+
+router.all('/fail', function(req, res, next) {
+  next();
+})
+.get('/fail', function(req, res, next) {
+  fail();
+  res.json({env: app.get('env')});
+})
+.put('/fail', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
+})
+.delete('/fail', function(req, res, next) {
+  var err = {status: 'HTTP '+ req.method + ' method not implemented for this route.', stack: null};
+  var mess = 'HTTP '+ req.method + ' method not implemented for this route.';
+  res.status(405).render('error', {title: 'Mehtod not implemented', error: err, message: mess}); 
 });
 
 module.exports = router;
