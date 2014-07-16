@@ -1,4 +1,6 @@
 extends layout
 
 block body_content
-include accounts.jade
+- var use_tepmlate = page + '.jade'
+p=page
+include(use_template)

@@ -1,0 +1,87 @@
+extends layout
+block body_content
+  section#createAccount
+    div#new_account_form
+      script.
+        $().ready(function() {
+          $('#form_create_account').on('submit', function(e) {
+            var _form = $(this)
+              , errors = [];
+            //console.log('input: ', $(_form[0]));
+            //console.log('selected: ', $(_form[0][1])[0].required);
+            //return false;
+            // Account name
+            if ($(_form[0][0])[0].type == 'text' && $(_form[0][0])[0].id == 'account_name' && $(_form[0][0])[0].value == '') 
+              errors.push({id: $(_form[0][0])[0].id, msg: '<span class="error">Account needs a name.</span>'});
+            // Account type
+            if ($(_form[0][1])[0].type == 'select' && $(_form[0][1])[0].id == 'account_type' && $(_form[0][1])[0].value == '') 
+              errors.push({id: $(_form[0][1])[0].id, msg: '<div class="error">Select an account type.</div>'});
+            // Account held at
+            if ($(_form[0][2])[0].type == 'text' && $(_form[0][2])[0].id == 'account_heldAt' && $(_form[0][2])[0].value == '') 
+              errors.push({id: $(_form[0][2])[0].id, msg: '<div class="error">Financial institute\'s name.</div>'});
+            // Account balance    
+            if ($(_form[0][3])[0].type == 'text' && $(_form[0][3])[0].id == 'account_balance' && $(_form[0][3])[0].value == '') 
+              errors.push({id: $(_form[0][3])[0].id, msg: '<div class="error">Account needs a balance.</div>'});
+                
+                
+            if (0 < errors.length) {
+              injectErrMessage();
+              return false;
+            } else {
+              _.submit();
+            }
+            
+            function injectErrMessage() {
+              for(err in errors) {
+                var e = errors[err];
+                console.log(errors[err]);
+                $('#'+ e.id).parent().addClass('label-danger').after(e.msg);
+              }
+            }
+          });
+        });
+      
+      form(id='form_create_account' method='post', action='/createAccount?_method=PUT')
+        //- input(id='_method', type='hidden', name='_method', value='PUT')
+        label(for='account_name') Name 
+          input(id='account_name', name='account_name', type='text', value='', required=false)
+        br
+        label(for='type') Type of Account 
+          select(id='account_type', name='account_type', required=false)
+            option(value=null) 
+            option(value="savings") Savings
+            option(value="checking") Checking
+            option(value="investment") Personal Investment
+            option(value="roth_ira") Personal ROTH IRA
+            option(value="traditional_ira") Traditional IRA
+            option(value="401k") Traditional 401K
+        br
+        label(for='account_heldAt') Held At 
+          input(id='account_heldAt', name='account_heldAt', type='text', value='', required=false)
+        br
+        label(for='acccount_balance') Balance 
+          input(id='account_balance', name='account_balance', type='text', value='', required=false)
+        br
+        label(for='account_liquid') Liquid Account 
+          //-select(id='account_liquid', name='account_liquid', require=false).
+            //-option(value="true") Yes
+            //-option(value="false") No
+          div.
+            <select id='account_liquid' name='account_liquid' required=false>
+              <option value=true>Yes</option>
+              <option value=false>No</option>
+            </select>
+        br
+        label(for='account_memo') Note 
+          textarea(id='account_memo', name='account_memo', columns='20', rows='3', value='', requied=false)
+        br
+        label(for='account_closed') Closed 
+          input(id='account_closed', name='account_closed', type='checkbox', required=false)
+        br
+        input(type='submit',value='Submit')
+        
+      
+  section#links
+    a(href='/createAccount') Create new account | a(href='/listAccounts') List accounts 
+    
+  section#next

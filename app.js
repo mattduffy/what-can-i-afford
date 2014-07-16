@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -21,12 +22,13 @@ app.set('view engine', 'jade');
 app.set('view options', {layout: true});
 //app.locals.pretty = true;
 
+app.use(methodOverride('_method'));
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser({keepExtensions: true, uploadDir: './uploads'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'models')));
@@ -34,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'models')));
 if (app.get('env') === 'development') {
   app.use(responseTime());
   app.use(errorHandler());
-  console.log(util.inspect(app._router, {depth: null, colors: true}));
+  //console.log(util.inspect(app._router, {depth: null, colors: true}));
 }
 
 app.use('/', routes);
@@ -42,9 +44,11 @@ app.use('/users', users);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  err.message = 'default 404 handler';
+  err.stack = 'no stack';
+  next(err);
 });
 
 

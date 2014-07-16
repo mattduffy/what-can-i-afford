@@ -2,11 +2,12 @@
 var util = require('util')
   , mongoose = require('mongoose')
   , Schema = mongoose.Schema
-  , dburl = undefined;
+  , dbparams = require('../libs/dbparams.js');
 
-exports.connect = function(theDBUrl, callback) {
-  dburl = theDBUrl;
-  mongoose.connect(dburl);
+exports.connect = function(theDBUrl, theDBOptions, callback) {
+  dburl = (undefined != theDBUrl) ? theDBUrl : dbparams.params.host;
+  dboptions = (undefined != theDBOptions) ? theDBOptions : dbparams.params.options;
+  mongoose.connect(dburl, dboptions);
 };
 
 exports.disconnect = function(callback) {
@@ -14,11 +15,11 @@ exports.disconnect = function(callback) {
 };
 
 var AccountSchema = new Schema({
-  id: ObjectId,
+  id: Schema.Types.ObjectId,
   name: String,
   type: String,
   heldAt: String,
-  balance: Float,
+  balance: {type: Number, min: 0},
   memo: String,
   liquid: Boolean,
   closed: Boolean
