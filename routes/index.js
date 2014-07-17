@@ -1,6 +1,7 @@
 var express = require('express')
   , app = express()
   , router = express.Router()
+  , debug = require('debug')
   , Account = require('../models/accounts.js');
 
 

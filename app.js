@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var responseTime = require('response-time');
 var errorHandler = require('errorhandler');
+var debug = require('debug');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +23,17 @@ app.set('view engine', 'jade');
 app.set('view options', {layout: true});
 //app.locals.pretty = true;
 
+app.use(cookieParser('wcia'));
+app.use(session({
+  name: 'what-can-i-afford', 
+  //store: 'MemoryStore',
+  secret: 'flappy paddles', 
+  cookie: {maxAge: null},
+  proxy: false,
+  rolling: false,
+  saveUninitialized: false,
+  resave: true
+}));
 app.use(methodOverride('_method'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(favicon());
@@ -29,7 +41,6 @@ app.use(logger('dev'));
 app.use(bodyParser({keepExtensions: true, uploadDir: './uploads'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'models')));
 
