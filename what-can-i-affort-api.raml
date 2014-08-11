@@ -1,0 +1,74 @@
+#%RAML 0.8
+---
+title: What Can I Afford API
+baseUri: http://localhost:3000/{version}
+version: v1
+
+/users:
+  get:
+    queryParameters:
+      name:
+        displayName: User Name
+        type: String
+        description: The screen name of the user account being viewed.
+        example: mattduffy
+        required: false
+      oId:
+        displayName: ObjectId
+        type: String
+        description: The unique objectId assigned by MongoDB.
+        example: 53e55fed62eba819c773b68d
+        required: false
+  post:
+    queryParameters:
+      access_token:
+        displayName: API Token
+        type: String
+        description: API token permitting access to create a new user account.
+        required: true
+  put:
+    queryParameters:
+      access_token:
+        displayName: API Token
+        type: string
+        description: API token permitting access to edit an existing user account.
+        required: true
+  /{userid}:
+    get:
+      description:
+      responses:
+        200:
+          body:
+            application/json:
+              example: {
+                "data": {
+                  "userid": 1,
+                  "fname": "Matthew",
+                  "lname": "Duffy",
+                  "username": "mattduffy",
+                  "description": null,
+                  "datetime": 1341533193,
+                  "link": "http://localhost:3000/users/mattduffy"
+                },
+                "err": null,
+                "success": true,
+                "status": 200
+              }
+        404:
+          body:
+            application/json:
+              example: {
+                "data": null,
+                "err": {
+                  "code": 40001,
+                  "msg": "No user found with userid: %%userid%%",
+                  "datetime": 1341533193
+                },
+                "success": false,
+                "status": 404
+              }
+    put:
+    delete:
+/collections:
+/loans:
+/accounts:
