@@ -12,16 +12,17 @@ block body_content
             //return false;
             // Account name
             if ($(_form[0][0])[0].type == 'text' && $(_form[0][0])[0].id == 'account_name' && $(_form[0][0])[0].value == '') 
-              errors.push({id: $(_form[0][0])[0].id, msg: '<span class="error">Account needs a name.</span>'});
+              errors.push({id: $(_form[0][0])[0].id, type: 'error', msg: 'Account needs a name.'});
             // Account type
-            if ($(_form[0][1])[0].type == 'select' && $(_form[0][1])[0].id == 'account_type' && $(_form[0][1])[0].value == '') 
-              errors.push({id: $(_form[0][1])[0].id, msg: '<div class="error">Select an account type.</div>'});
+            console.log('acct type:', $(_form[0][1])[0].id);
+            if ($(_form[0][1])[0].type == 'select-one' && $(_form[0][1])[0].id == 'account_type' && $(_form[0][1])[0].value == '') 
+              errors.push({id: $(_form[0][1])[0].id, type: 'error', msg: 'Select an account type.'});
             // Account held at
             if ($(_form[0][2])[0].type == 'text' && $(_form[0][2])[0].id == 'account_heldAt' && $(_form[0][2])[0].value == '') 
-              errors.push({id: $(_form[0][2])[0].id, msg: '<div class="error">Financial institute\'s name.</div>'});
+              errors.push({id: $(_form[0][2])[0].id, type: 'error', msg: 'Financial institute\'s name.'});
             // Account balance    
             if ($(_form[0][3])[0].type == 'text' && $(_form[0][3])[0].id == 'account_balance' && $(_form[0][3])[0].value == '') 
-              errors.push({id: $(_form[0][3])[0].id, msg: '<div class="error">Account needs a balance.</div>'});
+              errors.push({id: $(_form[0][3])[0].id, type: 'error', msg: 'Account needs a balance.'});
                 
                 
             if (0 < errors.length) {
@@ -34,8 +35,9 @@ block body_content
             function injectErrMessage() {
               for(err in errors) {
                 var e = errors[err];
-                console.log(errors[err]);
-                $('#'+ e.id).parent().addClass('label-danger').after(e.msg);
+                //console.log(errors[err]);
+                $('#'+ e.id).parent().addClass('label-danger').after($('<div></div>').addClass(e.type).html(e.msg));
+                
               }
             }
           });
@@ -48,7 +50,7 @@ block body_content
         br
         label(for='type') Type of Account 
           select(id='account_type', name='account_type', required=false)
-            option(value=null) 
+            option(value='') 
             option(value="savings") Savings
             option(value="checking") Checking
             option(value="investment") Personal Investment
@@ -78,10 +80,10 @@ block body_content
         label(for='account_closed') Closed 
           input(id='account_closed', name='account_closed', type='checkbox', required=false)
         br
-        input(type='submit',value='Submit')
+        input(type='submit',value='Save')
         
       
-  section#links
-    a(href='/createAccount') Create new account | a(href='/listAccounts') List accounts 
+  section#links.
+    <a href='/createAccount'>Create new account</a> | <a href='/listAccounts'>List accounts</a> | Not a link
     
   section#next

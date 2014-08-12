@@ -13,6 +13,14 @@ The goal of this app is to, hopefully, construct a much more financially accurat
 breakdown of a home purchase.  This app will include as many expenses beyond the basic
 APR values, such as:
 
+
+Lender fees: Origination Fee, Underwriting Fee and Processing Fee
+
+3rd Party Fees:  Title and Escrow, Appraisal and Credit Report
+
+Prepaid Fees: Prepaid interest, Property Taxes and Hazard Insurance.
+
+
 __Realtor Related Costs__
 * potential penalties for finding a property on your own
 * time spent traveling
